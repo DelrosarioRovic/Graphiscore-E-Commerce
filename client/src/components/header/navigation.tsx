@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { FaEllipsisV } from 'react-icons/fa';
 
 import LoginRegBtn from "./login&regbtn";
-
+import authentication from "../../hooks/authentication";
+import UserProfile from "./user/user-profile";
 
 const Navigation = () => {
+    const { authenticated } = authentication();
     const [isScreenBelow764, setScreenBelow764] = useState(window.innerWidth <= 764);
     const [handleCloseOpenNav, setHandleCloseOpenNav] = useState(false);
         
@@ -20,11 +22,11 @@ const Navigation = () => {
     }, []);
       
     const nav = (
-        <>
-            <li className="list-none px-2"><Link to="">Product</Link></li>
-            <li className="list-none px-2"><Link to="">About</Link></li>
-            <li className="list-none px-2"><Link to="">Contact</Link></li>
-        </>
+    <>
+        <li className="list-none px-2"><Link to="">Product</Link></li>
+        <li className="list-none px-2"><Link to="">About</Link></li>
+        <li className="list-none px-2"><Link to="">Contact</Link></li>
+    </>
     );
   
     return (
@@ -41,7 +43,6 @@ const Navigation = () => {
                     </div>    
                     )}
                 </div>
-                
             ) : (
                 <ul className="text-white flex gap-x-5">
                     {nav}

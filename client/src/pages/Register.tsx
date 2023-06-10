@@ -1,19 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginImg from "../assets/login.jpg";
+import axios from "axios";
 
 const Register:React.FC = () => {
+    const [displayName, setDisplayName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const url = "http://localhost:3000/auth/register";
+            const res = await axios.post(url, {
+                displayName: displayName, 
+                email: email, 
+                password: password, 
+              });
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
-    <div className="pt-24 px-10 flex">
-        <div className="flex w-full rounded-md overflow-hidden shadow-md">
-            <div className="flex flex-col w-2/5 gap-y-10 bg-gray-200 p-10">
+    <div className="pt-24 px-10 flex
+                    max-md:px-0
+                    max-md:pt-[4.5rem]">
+        {/* media query md below will be responsesive */}
+        <div className="flex flex-row-reverse w-full rounded-3xl overflow-hidden shadow-md
+                        max-md:rounded-none
+                        max-md:flex-col-reverse
+                        ">
+            <div className="flex flex-col w-2/5 gap-y-10 bg-gray-200 p-5
+                        max-md:w-full">
                 <h1 className="text-gray-800 font-semibold text-2xl">Register</h1>
-                <form className="flex flex-col">
+                <form onSubmit={handleSubmit} className="flex flex-col">
                     <div className="flex flex-col">
                         <label htmlFor="DisplayName" className="font-light mb-1">Display Name</label>
                         <input 
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
                             type="text"
                             id="displayName"
-                            className="p-1 font-light border"
+                            className="p-1 font-light outline outline-1 outline-gray-400"
                             placeholder="Enter your Display Name" />
                     </div>
                     <div className="flex flex-col">
@@ -21,9 +49,11 @@ const Register:React.FC = () => {
                             Email
                         </label>
                         <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             type="email"
                             id="Email"
-                            className="p-1 font-light border"
+                            className="p-1 font-light outline outline-1 outline-gray-400"
                             placeholder="Enter your email"
                         />
                     </div>
@@ -32,9 +62,11 @@ const Register:React.FC = () => {
                             Password
                         </label>
                         <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             type="password"
                             id="Password"
-                            className="p-1 font-light"
+                            className="p-1 font-light outline outline-1 outline-gray-400"
                             placeholder="Enter your password"
                         />
                     </div>
@@ -42,7 +74,9 @@ const Register:React.FC = () => {
                 </form>
             </div>
             <div
-                className="w-3/5 h-[500px] bg-center bg-cover"
+                className="w-3/5 h-[500px] bg-center bg-cover
+                           max-md:h-[50vh]
+                           max-md:w-full"
                 style={{
                 backgroundImage: `url(${LoginImg})`,
                 }}
