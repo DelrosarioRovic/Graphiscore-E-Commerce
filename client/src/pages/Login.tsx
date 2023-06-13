@@ -14,6 +14,11 @@ const Login: React.FC = () => {
                 email: email, 
                 password: password, 
                 });
+            if (res.status === 200) {
+                const token = res.data.token;
+                localStorage.setItem('token', token);
+            }
+            console.log(res.status);
         } catch (error) {
             console.log(error);
         }
